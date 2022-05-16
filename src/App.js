@@ -4,17 +4,26 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import "./App.css";
-
+import SideBar from "./components/Sidebar";
+import Rightbar from "./components/Rightbar";
 const App = () => {
 
   return (
     <>
+      <div className="page">
+        <div className="sideBar">
+          <SideBar/>
+        </div>
           <div className="mainWindow">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
+          </div>
+          <div className="rightBar">
+          <Rightbar/>
+        </div>
           </div>
     </>
   );
