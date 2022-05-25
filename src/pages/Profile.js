@@ -3,23 +3,27 @@ import './Profile.css';
 import {Link} from "react-router-dom"
 import {defaultImgs} from "../defaultimgs"
 import TweetInFeed from "../components/TweetInFeed";
+import { useMoralis } from "react-moralis";
 
 const Profile = () => {
+  const {Moralis} = useMoralis();
+  const user = Moralis.User.current();
+
   return (
     <>
       <div className="pageIdentify">Profile</div>
-      <img className="profileBanner" src={defaultImgs[1]}/>
+      <img className="profileBanner" src={user.attributes.banner ? user.attributes.banner : defaultImgs[1]}/>
       <div className="pfpContainer">
-        <img className="profilePFP" src={defaultImgs[0]}/>
-        <div className="profileName">Juhizzz</div>
-        <div className="profileWallet">0x42..314</div>
+        <img className="profilePFP" src={user.attributes.pfp ? user.attributes.pfp : defaultImgs[0]}/>
+        <div className="profileName">{user.attributes.username.slice(0,6)}</div>
+        <div className="profileWallet">{`${user.attributes.ethAddress.slice(0,4)}...${user.attributes.ethAddress.slice(38)}`}</div>
         <Link to="/settings">
           <div className="profileEdit">
             Edit Profile
           </div>
         </Link>
         <div className="profileBio">
-          Your Avg Web3 Mage
+          {user.attributes.bio }
         </div>
         <div className="profileTabs">
           <div className="profileTab">
